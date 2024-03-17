@@ -1,20 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { User } from 'oidc-client-ts';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import IUser from '../models/User';
 
-export interface AuthState {
-  authentication?: User;
-}
 
-const initialState: AuthState = {
-  authentication: undefined,
-};
+const initialState = {} as IUser;
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthentication: (state: any, { payload }: any) => {
-      state.authentication = payload;
+    setAuthentication: (state: IUser, action: PayloadAction<IUser>) => {
+      state.accessToken = action.payload.accessToken;
+      state.isAuthenticated = action.payload.isAuthenticated;
     },
   },
 });

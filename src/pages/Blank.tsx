@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import Dropdown from 'react-bootstrap/Dropdown';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import { toast } from 'react-toastify';
 import ApiService from '@app/services/Api.service';
 
@@ -32,16 +32,16 @@ const Blank = () => {
           toast.info('SucInfo messagecess.')
           break;
         case 'success':
-          NotificationManager.success('Success message', 'Title here');
+          // NotificationManager.success('Success message', 'Title here');
           break;
         case 'warning':
           //NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
           toast.warning('Warning message.')
           break;
         case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
+          // NotificationManager.error('Error message', 'Click me!', 5000, () => {
+          //   alert('callback');
+          // });
           break;
       }
     };
@@ -154,7 +154,7 @@ const Blank = () => {
           onClick={createNotification('error')}>Error
         </button>
 
-        <NotificationContainer/>
+       
       </div>
   </div>
  </div>

@@ -19,12 +19,10 @@ import Profile from '@pages/profile/Profile';
 
 import PublicRoute from './routes/PublicRoute';
 import PrivateRoute from './routes/PrivateRoute';
-import { setAuthentication } from './store/reducers/auth';
-import {
-  GoogleProvider,
-  getAuthStatus,
-  getFacebookLoginStatus,
-} from './utils/oidc-providers';
+
+import store from './store/store';
+import IUser from './store/models/User';
+
 
 const { VITE_NODE_ENV } = import.meta.env;
 
@@ -33,22 +31,12 @@ const App = () => {
   const screenSize = useSelector((state: any) => state.ui.screenSize);
   const dispatch = useDispatch();
   const location = useLocation();
-
+  const isLoggedIn = useSelector((state: IUser) => store.getState().auth.isAuthenticated);
   const [isAppLoading, setIsAppLoading] = useState(true);
 
   const checkSession = async () => {
     try {
-      let responses: any = await Promise.all([
-        getFacebookLoginStatus(),
-        GoogleProvider.getUser(),
-        getAuthStatus(),
-      ]);
-
-      responses = responses.filter((r: any) => Boolean(r));
-
-      if (responses && responses.length > 0) {
-        dispatch(setAuthentication(responses[0]));
-      }
+      isLoggedIn ? setIsAppLoading(false) : setIsAppLoading(true);
     } catch (error: any) {
       console.log('error', error);
     }
@@ -62,7 +50,7 @@ const App = () => {
   useEffect(() => {
     const size = calculateWindowSize(windowSize.width);
     if (screenSize !== size) {
-      dispatch(setWindowSize(size));
+      //dispatch(setWindowSize(size));
     }
   }, [windowSize]);
 

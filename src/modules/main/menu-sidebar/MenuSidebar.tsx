@@ -5,7 +5,8 @@ import { Image } from '@profabric/react-components';
 import styled from 'styled-components';
 import { SidebarSearch } from '@app/components/sidebar-search/SidebarSearch';
 import i18n from '@app/utils/i18n';
-
+import store from '../../../store/store';
+import IUser from '../../../store/models/User';
 export interface IMenuItem {
   name: string;
   icon?: string;
@@ -57,7 +58,7 @@ const StyledUserImage = styled(Image)`
 `;
 
 const MenuSidebar = () => {
-  const authentication = useSelector((state: any) => state.auth.authentication);
+  const authentication =  useSelector((state: IUser) => store.getState().auth);
   const sidebarSkin = useSelector((state: any) => state.ui.sidebarSkin);
   const menuItemFlat = useSelector((state: any) => state.ui.menuItemFlat);
   const menuChildIndent = useSelector((state: any) => state.ui.menuChildIndent);
@@ -77,18 +78,11 @@ const MenuSidebar = () => {
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
-            <StyledUserImage
-              src={authentication.profile.picture}
-              fallbackSrc="/img/default-profile.png"
-              alt="User"
-              width={34}
-              height={34}
-              rounded
-            />
+            
           </div>
           <div className="info">
             <Link to="/profile" className="d-block">
-              {authentication.profile.email}
+              {authentication.email}
             </Link>
           </div>
         </div>

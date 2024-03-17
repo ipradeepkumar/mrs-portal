@@ -8,7 +8,8 @@ import Header from '@app/modules/main/header/Header';
 import MenuSidebar from '@app/modules/main/menu-sidebar/MenuSidebar';
 import Footer from '@app/modules/main/footer/Footer';
 import { Image } from '@profabric/react-components';
-
+import store from '../../store/store';
+import IUser from '../../store/models/User';
 const Main = () => {
   const dispatch = useDispatch();
   const menuSidebarCollapsed = useSelector(
@@ -18,7 +19,8 @@ const Main = () => {
     (state: any) => state.ui.controlSidebarCollapsed
   );
   const screenSize = useSelector((state: any) => state.ui.screenSize);
-  const authentication = useSelector((state: any) => state.auth.authentication);
+  const authentication = useSelector((state: IUser) => store.getState().auth.isAuthenticated);
+
   const [isAppLoaded, setIsAppLoaded] = useState(false);
 
   const handleToggleMenuSidebar = () => {

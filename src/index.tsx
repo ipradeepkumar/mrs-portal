@@ -8,6 +8,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 import ReactGA from 'react-ga4';
+import Authorized from './components/auth/authorized';
+import Login from './pages/login';
 
 const { VITE_NODE_ENV, VITE_GA_ID } = import.meta.env;
 
@@ -20,7 +22,8 @@ const root = createRoot(container);
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Authorized unauthorized={<Login />} authorized={<App />} role=''>
+      </Authorized>
     </BrowserRouter>
   </Provider>
 );
